@@ -24,9 +24,9 @@ extension OpenAISwift {
     ///   - model: The AI Model to Use. Set to `OpenAIModelType.gpt3(.davinci)` by default which is the most capable model
     ///   - maxTokens: The limit character for the returned response, defaults to 16 as per the API
     ///   - completionHandler: Returns an OpenAI Data Model
-    public func sendCompletion(with prompt: String, model: OpenAIModelType = .gpt3(.davinci), maxTokens: Int = 16, completionHandler: @escaping (Result<OpenAI, OpenAIError>) -> Void) {
+    public func sendCompletion(with prompt: String, model: OpenAIModelType = .gpt3(.davinci), maxTokens: Int = 16, n: Int = 1, completionHandler: @escaping (Result<OpenAI, OpenAIError>) -> Void) {
         let endpoint = Endpoint.completions
-        let body = Command(prompt: prompt, model: model.modelName, maxTokens: maxTokens)
+        let body = Command(prompt: prompt, model: model.modelName, maxTokens: maxTokens, n: n)
         let request = prepareRequest(endpoint, body: body)
         
         makeRequest(request: request) { result in
